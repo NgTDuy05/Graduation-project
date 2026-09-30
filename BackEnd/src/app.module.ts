@@ -7,6 +7,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
 import { StudyModule } from './modules/study/study.module';
+import { ClassesModule } from './modules/classes/classes.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { StudyModule } from './modules/study/study.module';
     AuthModule,
     GamificationModule,
     StudyModule,
+    ClassesModule,
   ],
   controllers: [],
   providers: [],
