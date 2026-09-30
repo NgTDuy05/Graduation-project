@@ -105,10 +105,23 @@ npm run dev
 
 ## 🗺️ Lộ Trình Phát Triển 7 Giai Đoạn (Milestones)
 
-- [x] **Giai đoạn 1**: Khởi tạo project, cấu hình MySQL & MongoDB qua .env, kiểm tra build, tài liệu hướng dẫn và script tạo bảng MySQL.
-- [ ] **Giai đoạn 2**: Hệ thống xác thực (Đăng ký, Đăng nhập nhận diện username/email, phân quyền Role Guards, sinh mã học sinh 6 ký tự duy nhất).
-- [ ] **Giai đoạn 3**: Layout chuẩn (Sidebar thu gọn + Topbar streak/điểm/avatar) & Trang chủ học sinh.
-- [ ] **Giai đoạn 4**: Module Học bài (Danh sách môn/lớp 6-12, Chi tiết khoá theo chương, Chi tiết bài 4 phần: Lý thuyết, Flashcard ghép cặp, Bài tập, Ôn lỗi sai + Drawer Gia sư).
-- [ ] **Giai đoạn 5**: Module Lớp học (Giáo viên và Học sinh, tham gia mã, mời mã học sinh, giao bài tập, gia hạn riêng/cả lớp, theo dõi nộp bài).
-- [ ] **Giai đoạn 6**: Chat Realtime Socket.IO & Thông báo lớp.
-- [ ] **Giai đoạn 7**: Module Ôn luyện (Cấu hình đề, thi đếm ngược, phân tích kết quả) & Dữ liệu Seeder mẫu.
+- [x] **Giai đoạn 1**: Khởi tạo project, cấu hình Hybrid MySQL & MongoDB qua .env, kiểm tra build, tài liệu hướng dẫn và script tạo bảng MySQL (`schema.sql`).
+- [x] **Giai đoạn 2**: Hệ thống xác thực (Đăng ký, Đăng nhập nhận diện username/email, phân quyền Role Guards, sinh mã học sinh 6 ký tự duy nhất, popup chào mừng).
+- [x] **Giai đoạn 3**: Layout chuẩn (Sidebar thu gọn w-20/w-64 + Topbar streak/điểm/hạng/điểm danh hàng ngày +15 XP) & Trang chủ học sinh (6 thẻ tính năng, nhiệm vụ ngày, bảng xếp hạng).
+- [x] **Giai đoạn 4**: Module Học bài (Danh mục khối 6-12, Đề cương khoá học theo chương, Chi tiết bài học 4 phần: Lý thuyết định dạng phong phú, Flashcard 3D lật thẻ, Trắc nghiệm tức thì, Ôn lỗi sai + Drawer Gia sư AI thông minh).
+- [x] **Giai đoạn 5**: Module Lớp học (Giáo viên tạo lớp mã 8 ký tự, thêm học sinh qua mã 6 ký tự, giao bài tập, gia hạn riêng từng em / cả lớp, bảng theo dõi nộp bài & chấm điểm).
+- [x] **Giai đoạn 6**: Chat Realtime Socket.IO & Bảng tin thông báo lớp học (phòng chat theo lớp, lưu trữ MongoDB, typing indicator 3 chấm nhảy động, đếm số người online, ghim thông báo giáo viên).
+- [x] **Giai đoạn 7**: Module Ôn luyện & Thi trắc nghiệm trực tuyến (Kho đề thi theo khối lớp/môn học, cài đặt phòng thi tính giờ/tự do, đồng hồ đếm ngược báo động khi sắp hết giờ, bảng mục lục câu hỏi 1..N nhảy nhanh, chống gian lận che đáp án trước khi nộp, tự động chấm điểm thang 10, phân tích chi tiết câu đúng/sai kèm lời giải phương pháp & cộng thưởng XP).
+
+---
+
+## 👥 Tài Khoản Mẫu Trải Nghiệm (Test Accounts)
+
+Bạn có thể tự tạo tài khoản mới ngay trên giao diện hoặc đăng ký nhanh 2 vai trò để thử nghiệm liên thông tính năng:
+
+| Vai Trò | Email Đăng Nhập | Mật Khẩu | Đặc Điểm |
+| :--- | :--- | :--- | :--- |
+| **Giáo viên** | `giaovien@unilearn.edu.vn` | `123456` | Quản lý lớp học, tạo bài tập, xem nộp bài, gia hạn hạn chót, đăng thông báo |
+| **Học sinh** | `hocsinh@unilearn.edu.vn` | `123456` | Tự động cấp mã 6 ký tự, học bài 4 phần, làm bài tập, thi thử trắc nghiệm, chat realtime |
+| **Phụ huynh** | `phuhuynh@unilearn.edu.vn` | `123456` | Màn hình liên kết tài khoản học sinh |
+
