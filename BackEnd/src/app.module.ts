@@ -9,6 +9,7 @@ import { GamificationModule } from './modules/gamification/gamification.module';
 import { StudyModule } from './modules/study/study.module';
 import { ClassesModule } from './modules/classes/classes.module';
 import { ChatModule } from './modules/chat/chat.module';
+import { PracticeModule } from './modules/practice/practice.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ChatModule } from './modules/chat/chat.module';
     StudyModule,
     ClassesModule,
     ChatModule,
+    PracticeModule,
   ],
   controllers: [],
   providers: [],
