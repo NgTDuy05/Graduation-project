@@ -6,6 +6,7 @@ import { getTypeOrmConfig, getMongooseConfig } from './config/database.config';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { GamificationModule } from './modules/gamification/gamification.module';
+import { StudyModule } from './modules/study/study.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GamificationModule } from './modules/gamification/gamification.module';
     UsersModule,
     AuthModule,
     GamificationModule,
+    StudyModule,
   ],
   controllers: [],
   providers: [],
