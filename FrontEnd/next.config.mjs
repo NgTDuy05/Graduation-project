@@ -1,8 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['images.unsplash.com', 'api.dicebear.com'],
+  },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.infrastructureLogging = {
+        level: 'error',
+      };
+    }
+    return config;
   },
 };
 
