@@ -68,7 +68,7 @@ async function bootstrap() {
     if (req.method === 'GET') {
       return res.status(200).json({
         statusCode: 200,
-        message: 'Unilearn Login API. Vui lòng gửi POST /api/auth/login để đăng nhập.',
+        message: 'SmartLearn Login API. Vui lòng gửi POST /api/auth/login để đăng nhập.',
         endpoints: {
           login: 'POST /api/auth/login',
           register: 'POST /api/auth/register',
@@ -81,8 +81,8 @@ async function bootstrap() {
 
   // Swagger Documentation Setup
   const config = new DocumentBuilder()
-    .setTitle('Unilearn API Documentation')
-    .setDescription('Tài liệu API nền tảng học tập trực tuyến Unilearn ("Học thông minh")')
+    .setTitle('SmartLearn API Documentation')
+    .setDescription('Tài liệu API nền tảng học tập trực tuyến SmartLearn ("Học thông minh")')
     .setVersion('1.0')
     .addBearerAuth(
       {
@@ -102,7 +102,7 @@ async function bootstrap() {
   const port = process.env.PORT || 5000;
   await app.listen(port);
   console.log(`\n======================================================`);
-  console.log(`🚀 Unilearn Backend API đang chạy tại: http://localhost:${port}/api`);
+  console.log(`🚀 SmartLearn Backend API đang chạy tại: http://localhost:${port}/api`);
   console.log(`📖 Swagger API Docs tại: http://localhost:${port}/api/docs`);
   console.log(`======================================================\n`);
 }

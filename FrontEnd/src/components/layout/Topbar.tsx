@@ -52,7 +52,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           stats: result.stats,
         };
         setUser(updatedUser);
-        localStorage.setItem('unilearn_user', JSON.stringify(updatedUser));
+        localStorage.setItem('smartlearn_user', JSON.stringify(updatedUser));
       }
 
       setTimeout(() => {
@@ -156,7 +156,7 @@ export const Topbar: React.FC<TopbarProps> = ({
                 <div className="p-2.5 rounded-2xl bg-blue-50/70 border border-blue-100/60 flex items-start gap-2.5 text-xs">
                   <Sparkles className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-semibold text-slate-800">Chào mừng bạn gia nhập Unilearn!</p>
+                    <p className="font-semibold text-slate-800">Chào mừng bạn gia nhập SmartLearn!</p>
                     <p className="text-slate-500 text-[11px] mt-0.5">
                       Khám phá các bài học hay và ôn luyện thẻ ghi nhớ ngay hôm nay nhé.
                     </p>

@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       ignoreExpiration: false,
       secretOrKey:
         configService.get<string>('JWT_SECRET') ||
-        'unilearn_access_token_secret_key_2026_super_secure',
+        'smartlearn_access_token_secret_key_2026_super_secure',
     });
   }
 

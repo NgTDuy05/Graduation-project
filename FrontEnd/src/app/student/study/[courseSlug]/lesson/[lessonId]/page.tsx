@@ -59,7 +59,7 @@ export default function LessonDetailPage() {
   const [tutorMessages, setTutorMessages] = useState<Array<{ sender: 'user' | 'tutor'; text: string }>>([
     {
       sender: 'tutor',
-      text: 'Xin chào em! Thầy là Gia sư Unilearn AI. Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
+      text: 'Xin chào em! Thầy là Gia sư SmartLearn AI. Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
     },
   ]);
   const [tutorInput, setTutorInput] = useState('');
@@ -262,7 +262,7 @@ export default function LessonDetailPage() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:scale-102 transition-all cursor-pointer"
           >
             <Bot className="w-4 h-4" />
-            <span>Gia sư AI Unilearn</span>
+            <span>Gia sư AI SmartLearn</span>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </button>
         </div>
@@ -679,7 +679,7 @@ export default function LessonDetailPage() {
         )}
 
         {/* ============================================================ */}
-        {/* DRAWER GIA SƯ AI UNILearn */}
+        {/* DRAWER GIA SƯ AI SMARTLEARN */}
         {/* ============================================================ */}
         {isTutorOpen && (
           <div className="fixed inset-0 z-50 overflow-hidden">
@@ -698,7 +698,7 @@ export default function LessonDetailPage() {
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm">Gia sư Unilearn AI</h3>
+                    <h3 className="font-bold text-sm">Gia sư SmartLearn AI</h3>
                     <p className="text-[11px] text-blue-100">Trợ lý học tập thông minh 24/7</p>
                   </div>
                 </div>

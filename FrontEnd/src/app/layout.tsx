@@ -3,7 +3,7 @@ import './globals.css';
 import { AuthProvider } from '../contexts/AuthContext';
 
 export const metadata: Metadata = {
-  title: 'Unilearn - Học thông minh',
+  title: 'SmartLearn - Học thông minh',
   description: 'Nền tảng học tập trực tuyến thông minh dành cho học sinh từ lớp 6 đến lớp 12',
 };
 

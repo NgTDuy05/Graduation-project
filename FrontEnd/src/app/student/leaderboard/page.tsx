@@ -36,7 +36,7 @@ export default function LeaderboardPage() {
               <span>Đua Top Nhận Thưởng</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Bảng Vàng Thi Đua Unilearn
+              Bảng Vàng Thi Đua SmartLearn
             </h1>
             <p className="text-sm text-amber-100 max-w-xl leading-relaxed">
               Tích lũy điểm tia sét thông qua học bài, luyện thẻ flashcard, làm đề kiểm tra và duy trì chuỗi streak hàng ngày để thăng hạng!

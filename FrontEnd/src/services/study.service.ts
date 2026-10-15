@@ -49,7 +49,7 @@ export const studyService = {
   },
 
   /**
-   * Hỏi đáp Gia sư AI Unilearn
+   * Hỏi đáp Gia sư AI SmartLearn
    */
   async askTutor(payload: {
     lessonId: string;

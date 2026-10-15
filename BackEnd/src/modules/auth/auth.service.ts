@@ -35,12 +35,12 @@ export class AuthService {
 
     const jwtSecret =
       this.configService.get<string>('JWT_SECRET') ||
-      'unilearn_access_token_secret_key_2026_super_secure';
+      'smartlearn_access_token_secret_key_2026_super_secure';
     const jwtExpiration = this.configService.get<string>('JWT_EXPIRATION') || '1d';
 
     const jwtRefreshSecret =
       this.configService.get<string>('JWT_REFRESH_SECRET') ||
-      'unilearn_refresh_token_secret_key_2026_super_secure';
+      'smartlearn_refresh_token_secret_key_2026_super_secure';
     const jwtRefreshExpiration =
       this.configService.get<string>('JWT_REFRESH_EXPIRATION') || '7d';
 
@@ -140,7 +140,7 @@ export class AuthService {
   async refreshToken(dto: RefreshTokenDto) {
     const jwtRefreshSecret =
       this.configService.get<string>('JWT_REFRESH_SECRET') ||
-      'unilearn_refresh_token_secret_key_2026_super_secure';
+      'smartlearn_refresh_token_secret_key_2026_super_secure';
 
     let payload: { sub: number };
     try {

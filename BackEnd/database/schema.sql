@@ -1,11 +1,11 @@
 -- ===================================================================
--- UNILearn ("Học thông minh") - MySQL Relational Database Schema
--- Database: unilearn_db
+-- SmartLearn ("Học thông minh") - MySQL Relational Database Schema
+-- Database: smartlearn_db
 -- Encoding: utf8mb4_unicode_ci
 -- ===================================================================
 
-CREATE DATABASE IF NOT EXISTS `unilearn_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `unilearn_db`;
+CREATE DATABASE IF NOT EXISTS `smartlearn_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `smartlearn_db`;
 
 -- 1. Bảng Người dùng (users)
 CREATE TABLE IF NOT EXISTS `users` (

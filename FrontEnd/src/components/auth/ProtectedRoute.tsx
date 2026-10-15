@@ -33,7 +33,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
         <Loader2 className="w-10 h-10 text-blue-600 animate-spin mb-4" />
-        <p className="text-slate-600 text-sm font-medium">Đang tải thông tin Unilearn...</p>
+        <p className="text-slate-600 text-sm font-medium">Đang tải thông tin SmartLearn...</p>
       </div>
     );
   }

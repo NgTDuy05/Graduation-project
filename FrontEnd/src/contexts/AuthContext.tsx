@@ -43,8 +43,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const storedToken = localStorage.getItem('unilearn_access_token');
-      const storedUser = localStorage.getItem('unilearn_user');
+      const storedToken = localStorage.getItem('smartlearn_access_token');
+      const storedUser = localStorage.getItem('smartlearn_user');
 
       if (storedToken && storedUser) {
         try {
@@ -54,12 +54,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Đồng bộ lại profile mới nhất từ server
           const { user: freshUser } = await authService.getProfile();
           setUser(freshUser);
-          localStorage.setItem('unilearn_user', JSON.stringify(freshUser));
+          localStorage.setItem('smartlearn_user', JSON.stringify(freshUser));
         } catch {
           // Token không còn hợp lệ
-          localStorage.removeItem('unilearn_access_token');
-          localStorage.removeItem('unilearn_refresh_token');
-          localStorage.removeItem('unilearn_user');
+          localStorage.removeItem('smartlearn_access_token');
+          localStorage.removeItem('smartlearn_refresh_token');
+          localStorage.removeItem('smartlearn_user');
           setUser(null);
           setAccessToken(null);
         }
@@ -74,9 +74,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const response = await authService.login(credentials);
-      localStorage.setItem('unilearn_access_token', response.accessToken);
-      localStorage.setItem('unilearn_refresh_token', response.refreshToken);
-      localStorage.setItem('unilearn_user', JSON.stringify(response.user));
+      localStorage.setItem('smartlearn_access_token', response.accessToken);
+      localStorage.setItem('smartlearn_refresh_token', response.refreshToken);
+      localStorage.setItem('smartlearn_user', JSON.stringify(response.user));
 
       setUser(response.user);
       setAccessToken(response.accessToken);
@@ -91,9 +91,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       const response = await authService.register(credentials);
-      localStorage.setItem('unilearn_access_token', response.accessToken);
-      localStorage.setItem('unilearn_refresh_token', response.refreshToken);
-      localStorage.setItem('unilearn_user', JSON.stringify(response.user));
+      localStorage.setItem('smartlearn_access_token', response.accessToken);
+      localStorage.setItem('smartlearn_refresh_token', response.refreshToken);
+      localStorage.setItem('smartlearn_user', JSON.stringify(response.user));
 
       setUser(response.user);
       setAccessToken(response.accessToken);

@@ -7,7 +7,7 @@ export default function Home() {
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold shadow-sm">
           <Sparkles className="w-4 h-4 text-blue-600" />
-          <span>Unilearn - Nền tảng học thông minh</span>
+          <span>SmartLearn - Nền tảng học thông minh</span>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">

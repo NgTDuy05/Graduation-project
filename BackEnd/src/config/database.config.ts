@@ -7,7 +7,7 @@ export const getTypeOrmConfig = (): TypeOrmModuleOptions => ({
   port: parseInt(process.env.MYSQL_PORT || '3306', 10),
   username: process.env.MYSQL_USER || 'root',
   password: process.env.MYSQL_PASSWORD || '',
-  database: process.env.MYSQL_DATABASE || 'unilearn_db',
+  database: process.env.MYSQL_DATABASE || 'smartlearn_db',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: process.env.MYSQL_SYNCHRONIZE === 'true',
   autoLoadEntities: true,
@@ -15,5 +15,5 @@ export const getTypeOrmConfig = (): TypeOrmModuleOptions => ({
 });
 
 export const getMongooseConfig = (): MongooseModuleOptions => ({
-  uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/unilearn_db',
+  uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/smartlearn_db',
 });

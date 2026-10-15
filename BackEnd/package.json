@@ -1,8 +1,8 @@
 {
-  "name": "unilearn-backend",
+  "name": "smartlearn-backend",
   "version": "0.0.1",
-  "description": "Backend API for Unilearn Platform",
-  "author": "Unilearn Team",
+  "description": "Backend API for Smartlearn Platform",
+  "author": "Smartlearn Team",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

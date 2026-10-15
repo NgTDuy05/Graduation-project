@@ -1,4 +1,4 @@
-# Unilearn - Học Thông Minh 🚀
+# SmartLearn - Học Thông Minh 🚀
 Nền tảng học tập trực tuyến thông minh phục vụ học sinh từ Lớp 6 đến Lớp 12 với 3 phân quyền: Học sinh, Giáo viên và Phụ huynh.
 
 ---
@@ -36,14 +36,14 @@ Nền tảng học tập trực tuyến thông minh phục vụ học sinh từ 
    ```bash
    mysql -u root -p < BackEnd/database/schema.sql
    ```
-3. Script sẽ tự động tạo database `unilearn_db` và 8 bảng quan hệ chuẩn với bảng mã `utf8mb4`.
+3. Script sẽ tự động tạo database `smartlearn_db` và 8 bảng quan hệ chuẩn với bảng mã `utf8mb4`.
 
 ### Bước 2: Kiểm Tra MongoDB
 
 1. Đảm bảo dịch vụ MongoDB đang chạy trên máy (Service `MongoDB` trong Windows Services).
-2. Backend sẽ tự động kết nối và khởi tạo các collection trong database `unilearn_db` tại địa chỉ:
+2. Backend sẽ tự động kết nối và khởi tạo các collection trong database `smartlearn_db` tại địa chỉ:
    ```
-   mongodb://localhost:27017/unilearn_db
+   mongodb://localhost:27017/smartlearn_db
    ```
 
 ### Bước 3: Cấu Hình Biến Môi Trường (.env)
@@ -60,16 +60,16 @@ MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_USER=root
 MYSQL_PASSWORD=your_mysql_password_here
-MYSQL_DATABASE=unilearn_db
+MYSQL_DATABASE=smartlearn_db
 MYSQL_SYNCHRONIZE=true
 
 # MongoDB
-MONGODB_URI=mongodb://localhost:27017/unilearn_db
+MONGODB_URI=mongodb://localhost:27017/smartlearn_db
 
 # JWT
-JWT_SECRET=unilearn_access_token_secret_key_2026_super_secure
+JWT_SECRET=smartlearn_access_token_secret_key_2026_super_secure
 JWT_EXPIRATION=1d
-JWT_REFRESH_SECRET=unilearn_refresh_token_secret_key_2026_super_secure
+JWT_REFRESH_SECRET=smartlearn_refresh_token_secret_key_2026_super_secure
 JWT_REFRESH_EXPIRATION=7d
 ```
 
@@ -121,7 +121,6 @@ Bạn có thể tự tạo tài khoản mới ngay trên giao diện hoặc đă
 
 | Vai Trò | Email Đăng Nhập | Mật Khẩu | Đặc Điểm |
 | :--- | :--- | :--- | :--- |
-| **Giáo viên** | `giaovien@unilearn.edu.vn` | `123456` | Quản lý lớp học, tạo bài tập, xem nộp bài, gia hạn hạn chót, đăng thông báo |
-| **Học sinh** | `hocsinh@unilearn.edu.vn` | `123456` | Tự động cấp mã 6 ký tự, học bài 4 phần, làm bài tập, thi thử trắc nghiệm, chat realtime |
-| **Phụ huynh** | `phuhuynh@unilearn.edu.vn` | `123456` | Màn hình liên kết tài khoản học sinh |
-
+| **Giáo viên** | `giaovien@smartlearn.edu.vn` | `123456` | Quản lý lớp học, tạo bài tập, xem nộp bài, gia hạn hạn chót, đăng thông báo |
+| **Học sinh** | `hocsinh@smartlearn.edu.vn` | `123456` | Tự động cấp mã 6 ký tự, học bài 4 phần, làm bài tập, thi thử trắc nghiệm, chat realtime |
+| **Phụ huynh** | `phuhuynh@smartlearn.edu.vn` | `123456` | Màn hình liên kết tài khoản học sinh |

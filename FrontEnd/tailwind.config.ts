@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        unilearn: {
+        smartlearn: {
           50: '#f0f7ff',
           100: '#e0effe',
           200: '#bae0fd',

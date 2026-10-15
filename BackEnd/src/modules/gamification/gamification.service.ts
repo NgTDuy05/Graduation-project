@@ -58,7 +58,7 @@ export class GamificationService {
         {
           id: 'quest_checkin',
           title: 'Điểm danh chuyên cần hôm nay',
-          description: 'Đăng nhập vào Unilearn để duy trì ngọn lửa học tập',
+          description: 'Đăng nhập vào SmartLearn để duy trì ngọn lửa học tập',
           rewardPoints: 10,
           current: isCheckedInToday ? 1 : 0,
           target: 1,

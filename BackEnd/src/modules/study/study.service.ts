@@ -381,14 +381,14 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
   }
 
   /**
-   * Hỏi đáp Gia sư AI Unilearn
+   * Hỏi đáp Gia sư AI SmartLearn
    */
   async askTutor(dto: AskTutorDto) {
     const lesson = await this.lessonModel.findOne({ lessonId: dto.lessonId }).exec();
 
     // Giả lập câu trả lời sư phạm chi tiết và chuẩn phương pháp
     return {
-      tutorName: 'Gia sư Unilearn AI',
+      tutorName: 'Gia sư SmartLearn AI',
       response: `Chào em! Về câu hỏi của em: "${dto.question}" trong bài "${lesson?.title || dto.lessonTitle || 'Bài học'}":\n\n` +
         `💡 **Phương pháp ghi nhớ nhanh:**\n` +
         `1. Em cần luôn nhớ rằng đạo hàm $y' = f'(x)$ chính là thước đo độ dốc của tiếp tuyến đồ thị.\n` +

@@ -17,7 +17,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
       useFactory: (configService: ConfigService) => ({
         secret:
           configService.get<string>('JWT_SECRET') ||
-          'unilearn_access_token_secret_key_2026_super_secure',
+          'smartlearn_access_token_secret_key_2026_super_secure',
         signOptions: {
           expiresIn: configService.get<string>('JWT_EXPIRATION') || '1d',
         },

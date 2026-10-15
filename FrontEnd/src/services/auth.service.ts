@@ -40,9 +40,9 @@ export const authService = {
       return response.data;
     } finally {
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('unilearn_access_token');
-        localStorage.removeItem('unilearn_refresh_token');
-        localStorage.removeItem('unilearn_user');
+        localStorage.removeItem('smartlearn_access_token');
+        localStorage.removeItem('smartlearn_refresh_token');
+        localStorage.removeItem('smartlearn_user');
       }
     }
   },

@@ -189,10 +189,10 @@ export default function RegisterPage() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition-colors"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Unilearn • Học thông minh</span>
+            <span>SmartLearn • Học thông minh</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Tạo tài khoản Unilearn
+            Tạo tài khoản SmartLearn
           </h1>
           <p className="text-sm text-slate-500">
             Chọn vai trò phù hợp và bắt đầu trải nghiệm ngay hôm nay

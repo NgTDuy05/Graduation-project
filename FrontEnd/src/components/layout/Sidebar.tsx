@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {!isCollapsed && (
                 <div className="flex flex-col">
                   <span className="font-extrabold text-lg text-slate-900 leading-tight tracking-tight">
-                    Unilearn
+                    SmartLearn
                   </span>
                   <span className="text-[10px] font-semibold text-blue-600 flex items-center gap-1">
                     <Sparkles className="w-2.5 h-2.5" />

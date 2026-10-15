@@ -278,7 +278,7 @@ export default function TeacherPortalPage() {
             </div>
             <div>
               <span className="font-extrabold text-lg text-slate-900 tracking-tight">
-                Unilearn
+                SmartLearn
               </span>
               <span className="ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700">
                 Cổng Giáo Viên
