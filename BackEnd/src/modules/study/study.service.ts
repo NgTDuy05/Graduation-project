@@ -10,6 +10,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserStats } from '../users/entities/user-stats.entity';
 
+import { ConfigService } from '@nestjs/config';
+
 @Injectable()
 export class StudyService implements OnModuleInit {
   constructor(
@@ -21,6 +23,7 @@ export class StudyService implements OnModuleInit {
     private readonly progressModel: Model<UserProgressDocument>,
     @InjectRepository(UserStats)
     private readonly userStatsRepository: Repository<UserStats>,
+    private readonly configService: ConfigService,
   ) {}
 
   async onModuleInit() {
@@ -185,75 +188,75 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
             {
               id: 'fc_1',
               term: 'Hàm số đồng biến',
-              definition: 'Khi x tăng thì giá trị f(x) cũng tăng (đạo hàm f\'(x) > 0)',
-              example: 'y = 2x + 1 có y\' = 2 > 0 luôn đồng biến trên R',
+              definition: 'Khi $x$ tăng thì giá trị $f(x)$ cũng tăng (đạo hàm $f\'(x) > 0$)',
+              example: '$y = 2x + 1$ có $y\' = 2 > 0$ luôn đồng biến trên $\\mathbb{R}$',
               difficulty: 'easy',
             },
             {
               id: 'fc_2',
               term: 'Hàm số nghịch biến',
-              definition: 'Khi x tăng thì giá trị f(x) lại giảm (đạo hàm f\'(x) < 0)',
-              example: 'y = -3x + 5 có y\' = -3 < 0 luôn nghịch biến trên R',
+              definition: 'Khi $x$ tăng thì giá trị $f(x)$ lại giảm (đạo hàm $f\'(x) < 0$)',
+              example: '$y = -3x + 5$ có $y\' = -3 < 0$ luôn nghịch biến trên $\\mathbb{R}$',
               difficulty: 'easy',
             },
             {
               id: 'fc_3',
               term: 'Điểm tới hạn',
-              definition: 'Điểm mà tại đó f\'(x) = 0 hoặc f\'(x) không xác định',
-              example: 'y = x^3 - 3x có y\' = 3x^2 - 3 = 0 <=> x = 1 hoặc x = -1',
+              definition: 'Điểm mà tại đó $f\'(x) = 0$ hoặc $f\'(x)$ không xác định',
+              example: '$y = x^3 - 3x$ có $y\' = 3x^2 - 3 = 0 \\Leftrightarrow x = 1$ hoặc $x = -1$',
               difficulty: 'medium',
             },
             {
               id: 'fc_4',
               term: 'Quy tắc xét dấu nhị thức bậc nhất',
-              definition: 'Trước trái - Sau cùng (Trái dấu hệ số a trước nghiệm, cùng dấu sau nghiệm)',
-              example: 'f(x) = 2x - 4 có nghiệm x = 2; với x > 2 thì f(x) > 0',
+              definition: 'Trước trái - Sau cùng (Trái dấu hệ số $a$ trước nghiệm, cùng dấu sau nghiệm)',
+              example: '$f(x) = 2x - 4$ có nghiệm $x = 2$; với $x > 2$ thì $f(x) > 0$',
               difficulty: 'medium',
             },
             {
               id: 'fc_5',
               term: 'Quy tắc xét dấu tam thức bậc hai',
-              definition: 'Trong trái - Ngoài cùng (Trong khoảng 2 nghiệm trái dấu a, ngoài cùng dấu a)',
-              example: 'x^2 - 5x + 6 có nghiệm 2 và 3; trong khoảng (2;3) mang dấu âm',
+              definition: 'Trong trái - Ngoài cùng (Trong khoảng 2 nghiệm trái dấu $a$, ngoài cùng dấu $a$)',
+              example: '$x^2 - 5x + 6$ có nghiệm $2$ và $3$; trong khoảng $(2; 3)$ mang dấu âm',
               difficulty: 'hard',
             },
           ],
           practiceQuestions: [
             {
               id: 'q1',
-              question: 'Cho hàm số y = x^3 - 3x^2 + 2. Mệnh đề nào sau đây là ĐÚNG?',
+              question: 'Cho hàm số $y = x^3 - 3x^2 + 2$. Mệnh đề nào sau đây là ĐÚNG?',
               options: [
-                'Hàm số đồng biến trên khoảng (0; 2)',
-                'Hàm số nghịch biến trên khoảng (0; 2)',
-                'Hàm số đồng biến trên khoảng (-∞; 2)',
-                'Hàm số nghịch biến trên khoảng (2; +∞)',
+                'Hàm số đồng biến trên khoảng $(0; 2)$',
+                'Hàm số nghịch biến trên khoảng $(0; 2)$',
+                'Hàm số đồng biến trên khoảng $(-\\infty; 2)$',
+                'Hàm số nghịch biến trên khoảng $(2; +\\infty)$',
               ],
               correctIndex: 1,
-              explanation: 'Tính đạo hàm y\' = 3x^2 - 6x = 3x(x - 2). Cho y\' = 0 <=> x = 0 hoặc x = 2. Trong khoảng (0; 2), y\' < 0 nên hàm số nghịch biến trên (0; 2).',
+              explanation: 'Tính đạo hàm $y\' = 3x^2 - 6x = 3x(x - 2)$. Cho $y\' = 0 \\Leftrightarrow x = 0$ hoặc $x = 2$. Trong khoảng $(0; 2)$, $y\' < 0$ nên hàm số nghịch biến trên $(0; 2)$.',
             },
             {
               id: 'q2',
-              question: 'Tìm tất cả các khoảng đồng biến của hàm số y = -x^3 + 3x.',
+              question: 'Tìm tất cả các khoảng đồng biến của hàm số $y = -x^3 + 3x$.',
               options: [
-                '(-1; 1)',
-                '(-∞; -1) và (1; +∞)',
-                '(-∞; -1)',
-                '(1; +∞)',
+                '$(-1; 1)$',
+                '$(-\\infty; -1)$ và $(1; +\\infty)$',
+                '$(-\\infty; -1)$',
+                '$(1; +\\infty)$',
               ],
               correctIndex: 0,
-              explanation: 'y\' = -3x^2 + 3 = -3(x^2 - 1). y\' = 0 <=> x = ±1. Hệ số a = -3 < 0. Theo quy tắc trong trái ngoài cùng, y\' > 0 khi x ∈ (-1; 1). Do đó hàm số đồng biến trên (-1; 1).',
+              explanation: 'Ta có $y\' = -3x^2 + 3 = -3(x^2 - 1)$. Cho $y\' = 0 \\Leftrightarrow x = \\pm 1$. Hệ số $a = -3 < 0$. Theo quy tắc trong trái ngoài cùng, $y\' > 0$ khi $x \\in (-1; 1)$. Do đó hàm số đồng biến trên $(-1; 1)$.',
             },
             {
               id: 'q3',
-              question: 'Hàm số nào sau đây ĐỒNG BIẾN trên toàn bộ tập số thực R?',
+              question: 'Hàm số nào sau đây ĐỒNG BIẾN trên toàn bộ tập số thực $\\mathbb{R}$?',
               options: [
-                'y = x^4 + 2x^2 + 1',
-                'y = x^3 + 2x - 5',
-                'y = (x + 1) / (x - 2)',
-                'y = tan(x)',
+                '$y = x^4 + 2x^2 + 1$',
+                '$y = x^3 + 2x - 5$',
+                '$y = \\frac{x + 1}{x - 2}$',
+                '$y = \\tan(x)$',
               ],
               correctIndex: 1,
-              explanation: 'Xét hàm y = x^3 + 2x - 5 có y\' = 3x^2 + 2. Vì 3x^2 ≥ 0 với mọi x nên y\' = 3x^2 + 2 ≥ 2 > 0 với mọi x ∈ R. Do đó hàm số luôn đồng biến trên R.',
+              explanation: 'Xét hàm số $y = x^3 + 2x - 5$ có đạo hàm $y\' = 3x^2 + 2$. Vì $3x^2 \\ge 0$ với mọi $x$ nên $y\' = 3x^2 + 2 \\ge 2 > 0$ với mọi $x \\in \\mathbb{R}$. Do đó hàm số luôn đồng biến trên $\\mathbb{R}$.',
             },
           ],
         },
@@ -381,22 +384,90 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
   }
 
   /**
-   * Hỏi đáp Gia sư AI SmartLearn
+   * Hỏi đáp Gia sư AI SmartLearn (kết nối Google Gemini API)
    */
   async askTutor(dto: AskTutorDto) {
     const lesson = await this.lessonModel.findOne({ lessonId: dto.lessonId }).exec();
 
-    // Giả lập câu trả lời sư phạm chi tiết và chuẩn phương pháp
+    const apiKey =
+      this.configService.get<string>('GEMINI_API_KEY') ||
+      process.env.GEMINI_API_KEY ||
+      '';
+    const model =
+      this.configService.get<string>('GEMINI_MODEL') ||
+      process.env.GEMINI_MODEL ||
+      'gemini-3.8-flash';
+
+    const lessonTitle = lesson?.title || dto.lessonTitle || 'Bài học';
+    const theorySummary = lesson?.theoryContent
+      ? typeof lesson.theoryContent === 'string'
+        ? lesson.theoryContent.slice(0, 1500)
+        : JSON.stringify(lesson.theoryContent).slice(0, 1500)
+      : '';
+
+    if (apiKey) {
+      try {
+        const systemInstruction =
+          'Bạn là "Gia sư AI SmartLearn" - trợ lý sư phạm thông minh của nền tảng học trực tuyến SmartLearn dành cho học sinh Việt Nam từ lớp 6 đến lớp 12.\n' +
+          'Nhiệm vụ của bạn:\n' +
+          '- Giải đáp thắc mắc của học sinh một cách ân cần, kiên nhẫn, chuẩn phương pháp sư phạm.\n' +
+          '- Trình bày mạch lạc, dễ hiểu, có ví dụ minh họa và công thức toán học/khoa học bằng định dạng LaTeX (kẹp giữa $...$ hoặc $$...$$).\n' +
+          '- Đưa ra mẹo ghi nhớ nhanh hoặc lưu ý tránh sai lầm trong bài trắc nghiệm.\n' +
+          '- Khích lệ tinh thần học tập của học sinh.\n' +
+          '- Trả lời bằng tiếng Việt chuẩn mực, xưng hô "thầy/cô" hoặc "mình" và gọi học sinh là "em/bạn".';
+
+        const prompt =
+          `Bài học hiện tại: "${lessonTitle}"\n` +
+          (theorySummary ? `Tóm tắt nội dung lý thuyết bài học:\n${theorySummary}\n\n` : '') +
+          `Câu hỏi của học sinh: "${dto.question}"\n\n` +
+          `Hãy giải đáp chi tiết, đúng trọng tâm và dễ hiểu cho học sinh.`;
+
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              system_instruction: {
+                parts: [{ text: systemInstruction }],
+              },
+              contents: [
+                {
+                  parts: [{ text: prompt }],
+                },
+              ],
+            }),
+          },
+        );
+
+        if (response.ok) {
+          const data: any = await response.json();
+          const generatedText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (generatedText) {
+            return {
+              tutorName: 'Gia sư SmartLearn AI (Gemini)',
+              response: generatedText,
+            };
+          }
+        } else {
+          const errText = await response.text();
+          console.error('Lỗi phản hồi từ Gemini API:', response.status, errText);
+        }
+      } catch (err) {
+        console.error('Lỗi khi gọi Gemini API:', err);
+      }
+    }
+
+    // Fallback nếu không có API key hoặc kết nối bị gián đoạn
     return {
       tutorName: 'Gia sư SmartLearn AI',
-      response: `Chào em! Về câu hỏi của em: "${dto.question}" trong bài "${lesson?.title || dto.lessonTitle || 'Bài học'}":\n\n` +
+      response:
+        `Chào em! Về câu hỏi của em: "${dto.question}" trong bài "${lessonTitle}":\n\n` +
         `💡 **Phương pháp ghi nhớ nhanh:**\n` +
-        `1. Em cần luôn nhớ rằng đạo hàm $y' = f'(x)$ chính là thước đo độ dốc của tiếp tuyến đồ thị.\n` +
-        `2. Khi đạo hàm dương ($y' > 0$), đồ thị dốc lên từ trái sang phải, đồng nghĩa với việc giá trị $y$ tăng khi $x$ tăng (Đồng biến).\n` +
-        `3. Khi đạo hàm âm ($y' < 0$), đồ thị dốc xuống, nghĩa là $y$ giảm khi $x$ tăng (Nghịch biến).\n\n` +
-        `📝 **Mẹo làm bài trắc nghiệm:**\n` +
-        `- Khi giải phương trình $y' = 0$, hãy chú ý nghiệm bội chẵn và nghiệm bội lẻ: Đạo hàm chỉ ĐỔI DẤU khi qua nghiệm bội lẻ (bậc 1, 3, 5...), còn qua nghiệm bội chẵn (bậc 2, 4...) đạo hàm KHÔNG đổi dấu!\n\n` +
-        `Chúc em ôn tập thật tốt và làm đúng hết các câu hỏi củng cố nhé! Em còn thắc mắc chỗ nào nữa không?`,
+        `1. Em cần luôn ghi nhớ các định nghĩa và công thức cốt lõi của bài học.\n` +
+        `2. Đọc kỹ câu hỏi, xác định dữ kiện đã cho và đại lượng cần tìm.\n` +
+        `3. Chú ý các trường hợp đặc biệt và điều kiện xác định.\n\n` +
+        `Chúc em ôn tập thật tốt và làm đúng hết các bài tập nhé! Em có cần giải thích thêm phần nào nữa không?`,
     };
   }
 }

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { StudentLayout } from '../../../../components/layout/StudentLayout';
 import { practiceService } from '../../../../services/practice.service';
 import { Exam, ExamQuestion } from '../../../../types/practice';
+import { MathRenderer } from '../../../../components/common/MathRenderer';
 import {
   Clock,
   CheckCircle2,
@@ -264,7 +265,7 @@ export default function ExamRoomPage() {
 
               {/* Question Body */}
               <div className="text-base sm:text-lg font-medium text-slate-900 leading-relaxed">
-                {currentQ.question}
+                <MathRenderer content={currentQ.question} />
               </div>
 
               {/* Options List */}
@@ -291,12 +292,12 @@ export default function ExamRoomPage() {
                       >
                         {letter}
                       </span>
-                      <span
+                      <div
                         className={`text-sm sm:text-base leading-relaxed flex-1 ${isSelected ? 'font-bold text-emerald-950' : 'text-slate-800'
                           }`}
                       >
-                        {opt}
-                      </span>
+                        <MathRenderer content={opt} />
+                      </div>
                       {isSelected && (
                         <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                       )}
