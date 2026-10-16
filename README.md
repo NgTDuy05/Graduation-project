@@ -53,7 +53,7 @@ Nền tảng học tập trực tuyến thông minh phục vụ học sinh từ 
 ```env
 PORT=5000
 NODE_ENV=development
-FRONTEND_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:3001
 
 # MySQL
 MYSQL_HOST=localhost
@@ -99,7 +99,7 @@ Mở một cửa sổ terminal mới:
 cd FrontEnd
 npm run dev
 ```
-- Mở trình duyệt và truy cập: `http://localhost:3000`
+- Mở trình duyệt và truy cập: `http://localhost:3001`
 
 ---
 
