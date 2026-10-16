@@ -49,7 +49,7 @@ const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
-const port = 3000;
+const port = parseInt(process.env.PORT, 10) || 3001;
 
 const app = next({ dev, hostname, port, quiet: true });
 const handle = app.getRequestHandler();
