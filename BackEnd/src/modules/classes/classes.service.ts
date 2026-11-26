@@ -105,6 +105,138 @@ export class ClassesService {
   }
 
   /**
+   * Thống kê tổng quan cho trang Giáo viên
+   */
+  async getTeacherOverview(teacherId: number) {
+    const classes = await this.getTeacherClasses(teacherId);
+    const classIds = classes.map((c) => c.id);
+
+    const uniqueStudentIds = new Set<number>();
+    let totalAssignments = 0;
+
+    for (const cls of classes) {
+      totalAssignments += cls.assignments?.length || 0;
+      for (const m of cls.members || []) {
+        if (m.roleInClass === 'STUDENT') {
+          uniqueStudentIds.add(m.userId);
+        }
+      }
+    }
+
+    let pendingGradingCount = 0;
+    let totalSubmissions = 0;
+    let gradedSubmissions = 0;
+    let scoreSum = 0;
+    let recentPendingSubmissions: Array<{
+      submissionId: number;
+      studentName: string;
+      studentCode: string | null;
+      assignmentId: number;
+      assignmentTitle: string;
+      classId: number;
+      className: string;
+      status: SubmissionStatus;
+      submittedAt: Date | null;
+    }> = [];
+
+    if (classIds.length > 0) {
+      const subs = await this.submissionRepository
+        .createQueryBuilder('sub')
+        .innerJoinAndSelect('sub.assignment', 'asg')
+        .innerJoinAndSelect('asg.class', 'cls')
+        .innerJoinAndSelect('sub.student', 'student')
+        .where('cls.teacherId = :teacherId', { teacherId })
+        .orderBy('sub.submittedAt', 'DESC')
+        .getMany();
+
+      for (const sub of subs) {
+        if (sub.status === SubmissionStatus.DA_NOP || sub.status === SubmissionStatus.QUA_HAN) {
+          totalSubmissions++;
+          if (sub.score === null || sub.score === undefined) {
+            pendingGradingCount++;
+            if (recentPendingSubmissions.length < 8) {
+              recentPendingSubmissions.push({
+                submissionId: sub.id,
+                studentName: sub.student?.fullName || 'Học sinh',
+                studentCode: sub.student?.studentCode || null,
+                assignmentId: sub.assignmentId,
+                assignmentTitle: sub.assignment?.title || 'Bài tập',
+                classId: sub.assignment?.classId,
+                className: sub.assignment?.class?.name || 'Lớp học',
+                status: sub.status,
+                submittedAt: sub.submittedAt,
+              });
+            }
+          } else {
+            gradedSubmissions++;
+            scoreSum += Number(sub.score);
+          }
+        }
+      }
+    }
+
+    return {
+      totalClasses: classes.length,
+      totalStudents: uniqueStudentIds.size,
+      totalAssignments,
+      totalSubmissions,
+      pendingGradingCount,
+      gradedSubmissions,
+      averageScore: gradedSubmissions > 0 ? Number((scoreSum / gradedSubmissions).toFixed(2)) : null,
+      recentPendingSubmissions,
+    };
+  }
+
+  /**
+   * Giáo viên cập nhật thông tin lớp học
+   */
+  async updateClass(teacherId: number, classId: number, dto: Partial<CreateClassDto>) {
+    const cls = await this.classRepository.findOne({ where: { id: classId } });
+    if (!cls) throw new NotFoundException('Lớp học không tồn tại');
+    if (cls.teacherId !== teacherId) {
+      throw new ForbiddenException('Bạn không có quyền chỉnh sửa lớp học này');
+    }
+
+    if (dto.name !== undefined) cls.name = dto.name.trim();
+    if (dto.grade !== undefined) cls.grade = dto.grade;
+    if (dto.subject !== undefined) cls.subject = dto.subject;
+    if (dto.description !== undefined) cls.description = dto.description.trim();
+
+    return this.classRepository.save(cls);
+  }
+
+  /**
+   * Giáo viên xoá lớp học
+   */
+  async deleteClass(teacherId: number, classId: number) {
+    const cls = await this.classRepository.findOne({ where: { id: classId } });
+    if (!cls) throw new NotFoundException('Lớp học không tồn tại');
+    if (cls.teacherId !== teacherId) {
+      throw new ForbiddenException('Bạn không có quyền xoá lớp học này');
+    }
+
+    await this.classRepository.delete(classId);
+    return { message: `Đã xoá lớp học "${cls.name}" thành công` };
+  }
+
+  /**
+   * Giáo viên xoá bài tập
+   */
+  async deleteAssignment(teacherId: number, assignmentId: number) {
+    const asg = await this.assignmentRepository.findOne({
+      where: { id: assignmentId },
+      relations: ['class'],
+    });
+    if (!asg) throw new NotFoundException('Bài tập không tồn tại');
+    if (asg.class.teacherId !== teacherId) {
+      throw new ForbiddenException('Bạn không có quyền xoá bài tập này');
+    }
+
+    await this.assignmentRepository.delete(assignmentId);
+    return { message: `Đã xoá bài tập "${asg.title}" thành công` };
+  }
+
+  /**
    * Lấy danh sách lớp học sinh đã tham gia
    */
   async getStudentClasses(studentId: number) {

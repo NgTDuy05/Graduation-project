@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Delete,
   Body,
   Param,
   Query,
@@ -16,8 +17,12 @@ import {
 } from '@nestjs/swagger';
 import { PracticeService } from './practice.service';
 import { SubmitExamAttemptDto } from './dto/submit-exam.dto';
+import { CreateExamDto } from './dto/create-exam.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
+import { UserRole } from '../users/entities/user.entity';
 
 @ApiTags('Ôn Luyện & Thi Trắc Nghiệm (Practice Module)')
 @Controller('practice')
@@ -33,6 +38,24 @@ export class PracticeController {
     @Query('subject') subject?: string,
   ) {
     return this.practiceService.getExams(grade, subject);
+  }
+
+  @Post('exams')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Giáo viên tạo đề thi trắc nghiệm mới' })
+  async createExam(@Body() dto: CreateExamDto) {
+    return this.practiceService.createExam(dto);
+  }
+
+  @Delete('exams/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Giáo viên xoá đề thi trắc nghiệm' })
+  async deleteExam(@Param('id') examId: string) {
+    return this.practiceService.deleteExam(examId);
   }
 
   @Get('exams/:id')

@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Exam, ExamDocument } from './schemas/exam.schema';
 import { ExamAttempt, ExamAttemptDocument } from './schemas/exam-attempt.schema';
 import { SubmitExamAttemptDto } from './dto/submit-exam.dto';
+import { CreateExamDto } from './dto/create-exam.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserStats } from '../users/entities/user-stats.entity';
@@ -223,6 +224,64 @@ export class PracticeService implements OnModuleInit {
       .select('-questions.correctIndex -questions.explanation')
       .sort({ grade: -1, createdAt: -1 })
       .exec();
+  }
+
+  /**
+   * Giáo viên tạo đề thi trắc nghiệm mới
+   */
+  async createExam(dto: CreateExamDto) {
+    const slugBase = dto.title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+      .slice(0, 36);
+
+    const examId = `${slugBase || 'exam'}-${Date.now().toString(36)}`;
+
+    const formattedQuestions = dto.questions.map((q, idx) => {
+      if (q.correctIndex < 0 || q.correctIndex >= q.options.length) {
+        throw new BadRequestException(`Câu hỏi ${idx + 1}: Chỉ số đáp án đúng không hợp lệ`);
+      }
+      return {
+        id: `q_${idx + 1}_${Date.now().toString(36)}`,
+        question: q.question.trim(),
+        options: q.options.map((opt) => opt.trim()),
+        correctIndex: q.correctIndex,
+        explanation: q.explanation.trim(),
+        difficulty: q.difficulty || 'medium',
+      };
+    });
+
+    const exam = new this.examModel({
+      examId,
+      title: dto.title.trim(),
+      subject: dto.subject,
+      grade: dto.grade,
+      durationMinutes: dto.durationMinutes,
+      totalQuestions: formattedQuestions.length,
+      description: dto.description?.trim() || '',
+      questions: formattedQuestions,
+    });
+
+    await exam.save();
+    return {
+      message: `Tạo đề thi "${exam.title}" thành công!`,
+      exam,
+    };
+  }
+
+  /**
+   * Giáo viên xoá đề thi
+   */
+  async deleteExam(examId: string) {
+    const deleted = await this.examModel.findOneAndDelete({ examId }).exec();
+    if (!deleted) {
+      throw new NotFoundException(`Không tìm thấy đề thi với mã: ${examId}`);
+    }
+    return { message: `Đã xoá đề thi "${deleted.title}" thành công` };
   }
 
   /**

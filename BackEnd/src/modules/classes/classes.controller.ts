@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Delete,
   Body,
   Param,
@@ -55,6 +56,44 @@ export class ClassesController {
   @ApiOperation({ summary: 'Lấy danh sách lớp học do giáo viên phụ trách' })
   async getTeacherClasses(@CurrentUser('id') teacherId: number) {
     return this.classesService.getTeacherClasses(teacherId);
+  }
+
+  @Get('teacher/overview')
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiOperation({ summary: 'Thống kê tổng quan các lớp học của giáo viên' })
+  async getTeacherOverview(@CurrentUser('id') teacherId: number) {
+    return this.classesService.getTeacherOverview(teacherId);
+  }
+
+  @Patch(':id')
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiOperation({ summary: 'Giáo viên cập nhật thông tin lớp học' })
+  async updateClass(
+    @Param('id', ParseIntPipe) classId: number,
+    @CurrentUser('id') teacherId: number,
+    @Body() dto: Partial<CreateClassDto>,
+  ) {
+    return this.classesService.updateClass(teacherId, classId, dto);
+  }
+
+  @Delete(':id')
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiOperation({ summary: 'Giáo viên xoá lớp học' })
+  async deleteClass(
+    @Param('id', ParseIntPipe) classId: number,
+    @CurrentUser('id') teacherId: number,
+  ) {
+    return this.classesService.deleteClass(teacherId, classId);
+  }
+
+  @Delete('assignments/:assignmentId')
+  @Roles(UserRole.GIAO_VIEN)
+  @ApiOperation({ summary: 'Giáo viên xoá bài tập' })
+  async deleteAssignment(
+    @Param('assignmentId', ParseIntPipe) assignmentId: number,
+    @CurrentUser('id') teacherId: number,
+  ) {
+    return this.classesService.deleteAssignment(teacherId, assignmentId);
   }
 
   @Get('student')

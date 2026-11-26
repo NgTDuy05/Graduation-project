@@ -51,6 +51,35 @@ export const practiceService = {
   },
 
   /**
+   * Giáo viên tạo đề thi trắc nghiệm mới
+   */
+  async createExam(payload: {
+    title: string;
+    subject: string;
+    grade: number;
+    durationMinutes: number;
+    description?: string;
+    questions: Array<{
+      question: string;
+      options: string[];
+      correctIndex: number;
+      explanation: string;
+      difficulty?: string;
+    }>;
+  }): Promise<{ message: string; exam: Exam }> {
+    const res = await api.post('/practice/exams', payload);
+    return res.data;
+  },
+
+  /**
+   * Giáo viên xoá đề thi
+   */
+  async deleteExam(examId: string): Promise<{ message: string }> {
+    const res = await api.delete(`/practice/exams/${examId}`);
+    return res.data;
+  },
+
+  /**
    * Xem lại chi tiết một bài thi đã nộp
    */
   async getAttemptDetail(attemptId: string): Promise<AttemptDetailResponse> {

@@ -30,6 +30,60 @@ export const classService = {
   },
 
   /**
+   * Thống kê tổng quan giáo viên
+   */
+  async getTeacherOverview(): Promise<{
+    totalClasses: number;
+    totalStudents: number;
+    totalAssignments: number;
+    totalSubmissions: number;
+    pendingGradingCount: number;
+    gradedSubmissions: number;
+    averageScore: number | null;
+    recentPendingSubmissions: Array<{
+      submissionId: number;
+      studentName: string;
+      studentCode: string | null;
+      assignmentId: number;
+      assignmentTitle: string;
+      classId: number;
+      className: string;
+      status: string;
+      submittedAt: string | null;
+    }>;
+  }> {
+    const res = await api.get('/classes/teacher/overview');
+    return res.data;
+  },
+
+  /**
+   * Giáo viên cập nhật thông tin lớp học
+   */
+  async updateClass(
+    classId: number,
+    payload: Partial<{ name: string; grade: number; subject: string; description: string }>,
+  ): Promise<ClassItem> {
+    const res = await api.patch<ClassItem>(`/classes/${classId}`, payload);
+    return res.data;
+  },
+
+  /**
+   * Giáo viên xoá lớp học
+   */
+  async deleteClass(classId: number): Promise<{ message: string }> {
+    const res = await api.delete(`/classes/${classId}`);
+    return res.data;
+  },
+
+  /**
+   * Giáo viên xoá bài tập
+   */
+  async deleteAssignment(assignmentId: number): Promise<{ message: string }> {
+    const res = await api.delete(`/classes/assignments/${assignmentId}`);
+    return res.data;
+  },
+
+  /**
    * Lấy danh sách lớp học sinh đã tham gia
    */
   async getStudentClasses(): Promise<ClassItem[]> {
