@@ -56,10 +56,12 @@ export default function LessonDetailPage() {
 
   // AI Tutor Drawer State
   const [isTutorOpen, setIsTutorOpen] = useState(false);
+  const [tutorInteractionId, setTutorInteractionId] = useState<string | undefined>(undefined);
+  const [isGeminiPowered, setIsGeminiPowered] = useState<boolean | null>(null);
   const [tutorMessages, setTutorMessages] = useState<Array<{ sender: 'user' | 'tutor'; text: string }>>([
     {
       sender: 'tutor',
-      text: 'Xin chào em! Thầy là Gia sư Unilearn AI. Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
+      text: 'Xin chào em! Thầy là Gia sư Unilearn AI (Gemini). Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
     },
   ]);
   const [tutorInput, setTutorInput] = useState('');
@@ -184,7 +186,14 @@ export default function LessonDetailPage() {
         lessonId,
         question: questionText,
         lessonTitle: lesson?.title,
+        previousInteractionId: tutorInteractionId,
       });
+      if (res.interactionId) {
+        setTutorInteractionId(res.interactionId);
+      }
+      if (typeof res.poweredByGemini === 'boolean') {
+        setIsGeminiPowered(res.poweredByGemini);
+      }
       setTutorMessages((prev) => [
         ...prev,
         { sender: 'tutor', text: res.response },
@@ -698,7 +707,12 @@ export default function LessonDetailPage() {
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm">Gia sư Unilearn AI</h3>
+                    <h3 className="font-bold text-sm flex items-center gap-1.5">
+                      <span>Gia sư Unilearn AI</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-semibold">
+                        {isGeminiPowered === false ? 'Smart Tutor' : 'Gemini AI'}
+                      </span>
+                    </h3>
                     <p className="text-[11px] text-blue-100">Trợ lý học tập thông minh 24/7</p>
                   </div>
                 </div>

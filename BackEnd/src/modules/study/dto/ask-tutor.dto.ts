@@ -7,7 +7,7 @@ export class AskTutorDto {
   @IsNotEmpty()
   lessonId: string;
 
-  @ApiProperty({ example: 'Thầy/Cô giải thích lại giúp em định lý Fermat về cực trị hàm số với ạ' })
+  @ApiProperty({ example: 'Thầy/Cô giải thích lại giúp em định lý về tính đơn điệu với ạ' })
   @IsString()
   @IsNotEmpty()
   question: string;
@@ -16,4 +16,13 @@ export class AskTutorDto {
   @IsOptional()
   @IsString()
   lessonTitle?: string;
+
+  @ApiProperty({
+    example: 'int_abc123',
+    description: 'ID lượt hội thoại trước để duy trì ngữ cảnh với Gemini AI',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  previousInteractionId?: string;
 }

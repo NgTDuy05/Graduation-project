@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, OnModuleInit } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { GoogleGenAI } from '@google/genai';
 import { Course, CourseDocument } from './schemas/course.schema';
 import { Lesson, LessonDocument } from './schemas/lesson.schema';
 import { UserProgress, UserProgressDocument } from './schemas/user-progress.schema';
@@ -12,6 +14,10 @@ import { UserStats } from '../users/entities/user-stats.entity';
 
 @Injectable()
 export class StudyService implements OnModuleInit {
+  private readonly logger = new Logger(StudyService.name);
+  private readonly genAI: GoogleGenAI | null = null;
+  private readonly geminiModel: string;
+
   constructor(
     @InjectModel(Course.name)
     private readonly courseModel: Model<CourseDocument>,
@@ -21,7 +27,16 @@ export class StudyService implements OnModuleInit {
     private readonly progressModel: Model<UserProgressDocument>,
     @InjectRepository(UserStats)
     private readonly userStatsRepository: Repository<UserStats>,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    const apiKey = this.configService.get<string>('GEMINI_API_KEY')?.trim();
+    this.geminiModel =
+      this.configService.get<string>('GEMINI_MODEL')?.trim() || 'gemini-4-hydrogen';
+
+    if (apiKey && apiKey !== 'your_gemini_api_key_here') {
+      this.genAI = new GoogleGenAI({ apiKey });
+    }
+  }
 
   async onModuleInit() {
     await this.seedInitialCoursesIfEmpty();
@@ -381,22 +396,80 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
   }
 
   /**
-   * Hỏi đáp Gia sư AI Unilearn
+   * Hỏi đáp Gia sư AI Unilearn (Tích hợp Google Gemini API)
    */
   async askTutor(dto: AskTutorDto) {
     const lesson = await this.lessonModel.findOne({ lessonId: dto.lessonId }).exec();
+    const lessonTitle = lesson?.title || dto.lessonTitle || 'Bài học Unilearn';
+    const summaryText = lesson?.summary?.length
+      ? lesson.summary.map((s, idx) => `${idx + 1}. ${s}`).join('\n')
+      : 'Chưa có tóm tắt riêng.';
+    const theoryExcerpt = lesson?.theoryContent
+      ? lesson.theoryContent.slice(0, 2500)
+      : '';
 
-    // Giả lập câu trả lời sư phạm chi tiết và chuẩn phương pháp
+    const systemInstruction = [
+      'Bạn là Gia sư AI Unilearn — trợ lý học tập thông minh dành cho học sinh Việt Nam từ lớp 6 đến lớp 12.',
+      'Phong cách: ân cần, khích lệ, sư phạm, dễ hiểu, giải thích từng bước rõ ràng bằng tiếng Việt.',
+      'Định dạng: dùng gạch đầu dòng ngắn gọn, nhấn mạnh ý chính, công thức toán học viết gọn gàng.',
+      `Bài học hiện tại: "${lessonTitle}".`,
+      `Tóm tắt trọng tâm:\n${summaryText}`,
+      theoryExcerpt ? `Nội dung lý thuyết tham khảo:\n${theoryExcerpt}` : '',
+      'Nếu học sinh hỏi bài tập hoặc khái niệm, hãy gợi ý phương pháp giải trước khi chốt đáp án, và khuyến khích học sinh tự kiểm tra lại.',
+    ]
+      .filter(Boolean)
+      .join('\n\n');
+
+    if (this.genAI) {
+      try {
+        const interaction = await this.genAI.interactions.create({
+          model: this.geminiModel,
+          system_instruction: systemInstruction,
+          input: dto.question,
+          ...(dto.previousInteractionId
+            ? { previous_interaction_id: dto.previousInteractionId }
+            : {}),
+          generation_config: {
+            max_output_tokens: 1024,
+          },
+        });
+
+        const outputText = interaction.output_text?.trim();
+        if (outputText) {
+          return {
+            tutorName: 'Gia sư Unilearn AI (Gemini)',
+            response: outputText,
+            interactionId: interaction.id,
+            model: this.geminiModel,
+            poweredByGemini: true,
+          };
+        }
+      } catch (error) {
+        this.logger.warn(
+          `Gemini API error for lesson ${dto.lessonId}: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        );
+      }
+    }
+
+    // Fallback thông minh theo ngữ cảnh bài học khi chưa cấu hình GEMINI_API_KEY hoặc gặp lỗi tạm thời
+    const summaryBullets = lesson?.summary?.length
+      ? lesson.summary.map((s) => `• ${s}`).join('\n')
+      : '• Xem kỹ phần định nghĩa và các ví dụ mẫu trong mục Lý thuyết.\n• Luyện lại bộ Flashcard để ghi nhớ công thức trọng tâm.';
+
     return {
       tutorName: 'Gia sư Unilearn AI',
-      response: `Chào em! Về câu hỏi của em: "${dto.question}" trong bài "${lesson?.title || dto.lessonTitle || 'Bài học'}":\n\n` +
-        `💡 **Phương pháp ghi nhớ nhanh:**\n` +
-        `1. Em cần luôn nhớ rằng đạo hàm $y' = f'(x)$ chính là thước đo độ dốc của tiếp tuyến đồ thị.\n` +
-        `2. Khi đạo hàm dương ($y' > 0$), đồ thị dốc lên từ trái sang phải, đồng nghĩa với việc giá trị $y$ tăng khi $x$ tăng (Đồng biến).\n` +
-        `3. Khi đạo hàm âm ($y' < 0$), đồ thị dốc xuống, nghĩa là $y$ giảm khi $x$ tăng (Nghịch biến).\n\n` +
-        `📝 **Mẹo làm bài trắc nghiệm:**\n` +
-        `- Khi giải phương trình $y' = 0$, hãy chú ý nghiệm bội chẵn và nghiệm bội lẻ: Đạo hàm chỉ ĐỔI DẤU khi qua nghiệm bội lẻ (bậc 1, 3, 5...), còn qua nghiệm bội chẵn (bậc 2, 4...) đạo hàm KHÔNG đổi dấu!\n\n` +
-        `Chúc em ôn tập thật tốt và làm đúng hết các câu hỏi củng cố nhé! Em còn thắc mắc chỗ nào nữa không?`,
+      poweredByGemini: false,
+      response:
+        `Chào em! Thầy đã nhận được câu hỏi của em về **"${lessonTitle}"**:\n` +
+        `> "${dto.question}"\n\n` +
+        `💡 **Trọng tâm cần nắm trong bài này:**\n${summaryBullets}\n\n` +
+        `📝 **Gợi ý phương pháp học nhanh:**\n` +
+        `1. Đọc kỹ lại các bước phân tích ở mục **1. Lý thuyết** và thử tự giải lại ví dụ minh họa.\n` +
+        `2. Ôn các thẻ ở mục **2. Flashcards** để chắc chắn thuộc định nghĩa & công thức.\n` +
+        `3. Làm thử **3. Bài tập củng cố** rồi kiểm tra lại phần **4. Ôn lỗi sai**.\n\n` +
+        `*(Lưu ý kỹ thuật: Để bật trả lời tự do bằng Google Gemini AI, hãy cấu hình \`GEMINI_API_KEY\` trong file \`BackEnd/.env\`.)*`,
     };
   }
 }

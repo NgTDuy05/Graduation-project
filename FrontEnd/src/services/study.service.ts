@@ -49,13 +49,19 @@ export const studyService = {
   },
 
   /**
-   * Hỏi đáp Gia sư AI Unilearn
+   * Hỏi đáp Gia sư AI Unilearn (Gemini AI)
    */
   async askTutor(payload: {
     lessonId: string;
     question: string;
     lessonTitle?: string;
-  }): Promise<{ tutorName: string; response: string }> {
+    previousInteractionId?: string;
+  }): Promise<{
+    tutorName: string;
+    response: string;
+    interactionId?: string;
+    poweredByGemini?: boolean;
+  }> {
     const response = await api.post('/study/ai-tutor', payload);
     return response.data;
   },
