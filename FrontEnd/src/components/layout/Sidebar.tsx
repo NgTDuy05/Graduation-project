@@ -18,6 +18,7 @@ import {
   Copy,
   Check,
   Sparkles,
+  Crown,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -68,6 +69,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Bảng xếp hạng',
       href: '/student/leaderboard',
       icon: Trophy,
+    },
+    {
+      label: 'Gói tài khoản',
+      href: '/student/subscription',
+      icon: Crown,
+      badge: 'PRO',
     },
   ];
 
