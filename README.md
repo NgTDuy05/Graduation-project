@@ -71,6 +71,17 @@ JWT_SECRET=unilearn_access_token_secret_key_2026_super_secure
 JWT_EXPIRATION=1d
 JWT_REFRESH_SECRET=unilearn_refresh_token_secret_key_2026_super_secure
 JWT_REFRESH_EXPIRATION=7d
+
+# Google Gemini AI Tutor
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-4-hydrogen
+```
+
+### Bước 3.1: Khởi Tạo Dữ Liệu Mẫu (Seed Data)
+Sau khi cấu hình `.env` và đảm bảo MySQL + MongoDB đang chạy, chạy lệnh sau trong `BackEnd` để tạo sẵn tài khoản Giáo viên, Học sinh, Phụ huynh, lớp học, bài tập, bài học, đề thi thử và tin nhắn mẫu:
+```bash
+cd BackEnd
+npm run seed
 ```
 
 #### 2. Frontend (`FrontEnd/.env.local`):
