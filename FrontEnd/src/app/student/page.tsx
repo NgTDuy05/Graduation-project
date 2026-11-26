@@ -141,7 +141,7 @@ export default function StudentHomePage() {
           <div className="relative z-10 max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-blue-100 text-xs font-semibold shadow-xs">
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>Unilearn • Học thông minh - Vươn tầm tri thức</span>
+              <span>SmartLearn • Học thông minh - Vươn tầm tri thức</span>
             </div>
 
             <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
@@ -266,11 +266,10 @@ export default function StudentHomePage() {
                 quests.map((quest) => (
                   <div
                     key={quest.id}
-                    className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-4 ${
-                      quest.isCompleted
+                    className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-4 ${quest.isCompleted
                         ? 'bg-emerald-50/50 border-emerald-200/60'
                         : 'bg-slate-50/70 border-slate-200/70 hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-start gap-3 min-w-0">
                       <div className="mt-0.5">
@@ -282,9 +281,8 @@ export default function StudentHomePage() {
                       </div>
                       <div className="space-y-0.5 min-w-0">
                         <p
-                          className={`text-sm font-bold truncate ${
-                            quest.isCompleted ? 'text-emerald-900 line-through' : 'text-slate-900'
-                          }`}
+                          className={`text-sm font-bold truncate ${quest.isCompleted ? 'text-emerald-900 line-through' : 'text-slate-900'
+                            }`}
                         >
                           {quest.title}
                         </p>
@@ -330,19 +328,18 @@ export default function StudentHomePage() {
                       index === 0
                         ? '🥇'
                         : index === 1
-                        ? '🥈'
-                        : index === 2
-                        ? '🥉'
-                        : `#${index + 1}`;
+                          ? '🥈'
+                          : index === 2
+                            ? '🥉'
+                            : `#${index + 1}`;
 
                     return (
                       <div
                         key={item.userId}
-                        className={`p-3 rounded-2xl flex items-center justify-between gap-3 transition-colors ${
-                          isCurrentUser
+                        className={`p-3 rounded-2xl flex items-center justify-between gap-3 transition-colors ${isCurrentUser
                             ? 'bg-blue-50 border border-blue-200/80 shadow-xs'
                             : 'hover:bg-slate-50 border border-transparent'
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <span className="w-6 text-center font-bold text-sm text-slate-700">

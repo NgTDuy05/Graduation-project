@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { StudentLayout } from '../../../../components/layout/StudentLayout';
 import { practiceService } from '../../../../services/practice.service';
 import { Exam, ExamQuestion } from '../../../../types/practice';
+import { MathRenderer } from '../../../../components/common/MathRenderer';
 import {
   Clock,
   CheckCircle2,
@@ -210,13 +211,12 @@ export default function ExamRoomPage() {
           <div className="flex items-center gap-3 justify-between sm:justify-end">
             {/* Timer Badge */}
             <div
-              className={`px-4 py-2 rounded-2xl font-mono text-sm sm:text-base font-black flex items-center gap-2 border transition-all ${
-                isTimed
+              className={`px-4 py-2 rounded-2xl font-mono text-sm sm:text-base font-black flex items-center gap-2 border transition-all ${isTimed
                   ? isTimeCritical
                     ? 'bg-rose-50 border-rose-200 text-rose-600 animate-pulse'
                     : 'bg-emerald-50 border-emerald-200 text-emerald-700'
                   : 'bg-slate-100 border-slate-200 text-slate-700'
-              }`}
+                }`}
             >
               <Clock className="w-4 h-4" />
               <span>{isTimed ? formatTime(timeLeft) : formatTime(elapsedTime)}</span>
@@ -253,11 +253,10 @@ export default function ExamRoomPage() {
                 <button
                   type="button"
                   onClick={() => toggleFlag(currentQ.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
-                    flagged[currentQ.id]
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${flagged[currentQ.id]
                       ? 'bg-amber-100 text-amber-800 border border-amber-200'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
+                    }`}
                 >
                   <Flag className={`w-3.5 h-3.5 ${flagged[currentQ.id] ? 'fill-amber-600 text-amber-600' : ''}`} />
                   <span>{flagged[currentQ.id] ? 'Đã đánh dấu' : 'Đánh dấu câu này'}</span>
@@ -266,7 +265,7 @@ export default function ExamRoomPage() {
 
               {/* Question Body */}
               <div className="text-base sm:text-lg font-medium text-slate-900 leading-relaxed">
-                {currentQ.question}
+                <MathRenderer content={currentQ.question} />
               </div>
 
               {/* Options List */}
@@ -280,28 +279,25 @@ export default function ExamRoomPage() {
                       key={optIdx}
                       type="button"
                       onClick={() => handleSelectOption(currentQ.id, optIdx)}
-                      className={`w-full p-4 rounded-2xl border text-left flex items-start gap-4 transition-all duration-200 cursor-pointer ${
-                        isSelected
+                      className={`w-full p-4 rounded-2xl border text-left flex items-start gap-4 transition-all duration-200 cursor-pointer ${isSelected
                           ? 'bg-emerald-50/70 border-emerald-500 ring-2 ring-emerald-500/20 shadow-xs'
                           : 'bg-white border-slate-200/90 hover:border-slate-300 hover:bg-slate-50/60'
-                      }`}
+                        }`}
                     >
                       <span
-                        className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center flex-shrink-0 transition-colors ${
-                          isSelected
+                        className={`w-7 h-7 rounded-xl font-bold text-xs flex items-center justify-center flex-shrink-0 transition-colors ${isSelected
                             ? 'bg-emerald-600 text-white'
                             : 'bg-slate-100 text-slate-700'
-                        }`}
+                          }`}
                       >
                         {letter}
                       </span>
-                      <span
-                        className={`text-sm sm:text-base leading-relaxed flex-1 ${
-                          isSelected ? 'font-bold text-emerald-950' : 'text-slate-800'
-                        }`}
+                      <div
+                        className={`text-sm sm:text-base leading-relaxed flex-1 ${isSelected ? 'font-bold text-emerald-950' : 'text-slate-800'
+                          }`}
                       >
-                        {opt}
-                      </span>
+                        <MathRenderer content={opt} />
+                      </div>
                       {isSelected && (
                         <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                       )}
@@ -440,7 +436,7 @@ export default function ExamRoomPage() {
                 </div>
                 <h3 className="text-lg font-bold text-slate-900">Xác nhận nộp bài thi?</h3>
                 <p className="text-xs text-slate-500">
-                  Sau khi nộp bài, hệ thống Unilearn sẽ tự động chấm điểm và phân tích đáp án chi tiết.
+                  Sau khi nộp bài, hệ thống SmartLearn sẽ tự động chấm điểm và phân tích đáp án chi tiết.
                 </p>
               </div>
 

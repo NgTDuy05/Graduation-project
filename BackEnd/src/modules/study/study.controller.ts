@@ -84,7 +84,7 @@ export class StudyController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
-    summary: 'Hỏi đáp Gia sư AI Unilearn về bài học',
+    summary: 'Hỏi đáp Gia sư AI SmartLearn về bài học',
     description: 'Nhận câu trả lời và gợi ý học tập chuẩn phương pháp sư phạm.',
   })
   @ApiResponse({ status: 200, description: 'Trả lời thành công' })

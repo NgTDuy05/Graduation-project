@@ -13,7 +13,7 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('unilearn_access_token');
+      const token = localStorage.getItem('smartlearn_access_token');
       if (token && config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -73,14 +73,14 @@ api.interceptors.response.use(
 
       const refreshToken =
         typeof window !== 'undefined'
-          ? localStorage.getItem('unilearn_refresh_token')
+          ? localStorage.getItem('smartlearn_refresh_token')
           : null;
 
       if (!refreshToken) {
         if (typeof window !== 'undefined') {
-          localStorage.removeItem('unilearn_access_token');
-          localStorage.removeItem('unilearn_refresh_token');
-          localStorage.removeItem('unilearn_user');
+          localStorage.removeItem('smartlearn_access_token');
+          localStorage.removeItem('smartlearn_refresh_token');
+          localStorage.removeItem('smartlearn_user');
         }
         isRefreshing = false;
         return Promise.reject(error);
@@ -95,9 +95,9 @@ api.interceptors.response.use(
         const newRefreshToken = data.refreshToken;
 
         if (typeof window !== 'undefined') {
-          localStorage.setItem('unilearn_access_token', newAccessToken);
+          localStorage.setItem('smartlearn_access_token', newAccessToken);
           if (newRefreshToken) {
-            localStorage.setItem('unilearn_refresh_token', newRefreshToken);
+            localStorage.setItem('smartlearn_refresh_token', newRefreshToken);
           }
         }
 
@@ -110,9 +110,9 @@ api.interceptors.response.use(
       } catch (refreshErr) {
         processQueue(refreshErr, null);
         if (typeof window !== 'undefined') {
-          localStorage.removeItem('unilearn_access_token');
-          localStorage.removeItem('unilearn_refresh_token');
-          localStorage.removeItem('unilearn_user');
+          localStorage.removeItem('smartlearn_access_token');
+          localStorage.removeItem('smartlearn_refresh_token');
+          localStorage.removeItem('smartlearn_user');
           window.location.href = '/login';
         }
         return Promise.reject(refreshErr);

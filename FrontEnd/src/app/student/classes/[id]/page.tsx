@@ -159,7 +159,7 @@ export default function StudentClassDetailPage() {
             </h1>
 
             <p className="text-xs sm:text-sm text-indigo-100 max-w-xl">
-              {classData.description || 'Lớp học trực tuyến trên nền tảng Unilearn.'}
+              {classData.description || 'Lớp học trực tuyến trên nền tảng SmartLearn.'}
             </p>
 
             <div className="pt-1 flex items-center gap-4 text-xs font-medium text-indigo-100">

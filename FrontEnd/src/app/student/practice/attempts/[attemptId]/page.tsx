@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { StudentLayout } from '../../../../../components/layout/StudentLayout';
 import { practiceService } from '../../../../../services/practice.service';
 import { AttemptDetailResponse } from '../../../../../types/practice';
+import { MathRenderer } from '../../../../../components/common/MathRenderer';
 import {
   Trophy,
   CheckCircle2,
@@ -305,7 +306,7 @@ export default function AttemptDetailPage() {
                         {idx + 1}
                       </span>
                       <h3 className="text-base font-bold text-slate-900 leading-snug">
-                        {item.question}
+                        <MathRenderer content={item.question} />
                       </h3>
                     </div>
 
@@ -374,7 +375,9 @@ export default function AttemptDetailPage() {
                             {letter}
                           </span>
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs sm:text-sm leading-relaxed">{opt}</div>
+                            <div className="text-xs sm:text-sm leading-relaxed">
+                              <MathRenderer content={opt} />
+                            </div>
                             {badge && <div className="mt-1.5">{badge}</div>}
                           </div>
                         </div>
@@ -388,9 +391,13 @@ export default function AttemptDetailPage() {
                       <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                       <span>Lời giải chi tiết & Phương pháp:</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-700 leading-relaxed pl-5">
-                      {item.explanation || 'Không có lời giải chi tiết cho câu hỏi này.'}
-                    </p>
+                    <div className="text-xs sm:text-sm text-slate-700 leading-relaxed pl-5">
+                      {item.explanation ? (
+                        <MathRenderer content={item.explanation} />
+                      ) : (
+                        'Không có lời giải chi tiết cho câu hỏi này.'
+                      )}
+                    </div>
                   </div>
                 </div>
               );

@@ -66,7 +66,7 @@ export default function LoginPage() {
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-semibold hover:bg-blue-100 transition-colors"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Unilearn • Học thông minh</span>
+            <span>SmartLearn • Học thông minh</span>
           </Link>
           <div className="flex justify-center pt-2">
             <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/30">

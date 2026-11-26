@@ -11,7 +11,7 @@ dist/
 build/
 .next/
 out/
-
+certs/
 # Environment files
 .env
 .env.local

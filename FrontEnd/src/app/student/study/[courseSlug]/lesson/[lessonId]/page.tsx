@@ -7,6 +7,7 @@ import { StudentLayout } from '../../../../../../components/layout/StudentLayout
 import { studyService } from '../../../../../../services/study.service';
 import { useAuth } from '../../../../../../contexts/AuthContext';
 import { Lesson, UserProgress, FlashcardItem } from '../../../../../../types/study';
+import { MathRenderer } from '../../../../../../components/common/MathRenderer';
 import {
   BookOpen,
   Layers,
@@ -61,7 +62,7 @@ export default function LessonDetailPage() {
   const [tutorMessages, setTutorMessages] = useState<Array<{ sender: 'user' | 'tutor'; text: string }>>([
     {
       sender: 'tutor',
-      text: 'Xin chào em! Thầy là Gia sư Unilearn AI (Gemini). Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
+      text: 'Xin chào em! Thầy là Gia sư SmartLearn AI (Gemini). Em có thắc mắc gì về bài học này cần thầy giải đáp không?',
     },
   ]);
   const [tutorInput, setTutorInput] = useState('');
@@ -271,7 +272,7 @@ export default function LessonDetailPage() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:scale-102 transition-all cursor-pointer"
           >
             <Bot className="w-4 h-4" />
-            <span>Gia sư AI Unilearn</span>
+            <span>Gia sư AI SmartLearn</span>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </button>
         </div>
@@ -364,8 +365,8 @@ export default function LessonDetailPage() {
                 {lesson.title}
               </h1>
 
-              <div className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-4 text-slate-700 whitespace-pre-line">
-                {lesson.theoryContent}
+              <div className="max-w-none text-sm sm:text-base leading-relaxed text-slate-700">
+                <MathRenderer content={lesson.theoryContent} />
               </div>
 
               {/* Complete Theory Action Button */}
@@ -427,12 +428,13 @@ export default function LessonDetailPage() {
                       </div>
                     ) : (
                       <div className="space-y-3 animate-fadeIn">
-                        <p className="text-base sm:text-lg font-bold text-blue-700">
-                          {currentCard.definition}
-                        </p>
+                        <div className="text-base sm:text-lg font-bold text-blue-700">
+                          <MathRenderer content={currentCard.definition} />
+                        </div>
                         {currentCard.example && (
                           <div className="p-3 rounded-2xl bg-slate-50 text-xs text-slate-600 border border-slate-100 text-left">
-                            <strong>Ví dụ minh họa:</strong> {currentCard.example}
+                            <strong>Ví dụ minh họa:</strong>
+                            <MathRenderer content={currentCard.example} />
                           </div>
                         )}
                       </div>
@@ -532,9 +534,9 @@ export default function LessonDetailPage() {
                       <span className="w-7 h-7 rounded-xl bg-blue-50 text-blue-700 font-bold flex items-center justify-center text-xs flex-shrink-0">
                         {qIndex + 1}
                       </span>
-                      <h4 className="font-bold text-sm sm:text-base text-slate-900 leading-snug">
-                        {q.question}
-                      </h4>
+                      <div className="font-bold text-sm sm:text-base text-slate-900 leading-snug">
+                        <MathRenderer content={q.question} />
+                      </div>
                     </div>
 
                     {/* Options list */}
@@ -569,7 +571,9 @@ export default function LessonDetailPage() {
                             <span className="w-6 h-6 rounded-lg bg-white border border-slate-200 text-xs font-bold flex items-center justify-center flex-shrink-0">
                               {String.fromCharCode(65 + optIndex)}
                             </span>
-                            <span>{opt}</span>
+                            <div className="flex-1">
+                              <MathRenderer content={opt} />
+                            </div>
                           </button>
                         );
                       })}
@@ -582,9 +586,9 @@ export default function LessonDetailPage() {
                           <HelpCircle className="w-4 h-4 text-blue-600" />
                           <span>Giải thích chi tiết:</span>
                         </div>
-                        <p className="text-slate-600 leading-relaxed pl-5">
-                          {q.explanation}
-                        </p>
+                        <div className="text-slate-600 leading-relaxed pl-5">
+                          <MathRenderer content={q.explanation} />
+                        </div>
                       </div>
                     )}
                   </div>
@@ -688,7 +692,7 @@ export default function LessonDetailPage() {
         )}
 
         {/* ============================================================ */}
-        {/* DRAWER GIA SƯ AI UNILearn */}
+        {/* DRAWER GIA SƯ AI SMARTLEARN */}
         {/* ============================================================ */}
         {isTutorOpen && (
           <div className="fixed inset-0 z-50 overflow-hidden">
@@ -708,7 +712,7 @@ export default function LessonDetailPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-sm flex items-center gap-1.5">
-                      <span>Gia sư Unilearn AI</span>
+                      <span>Gia sư SmartLearn AI</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 font-semibold">
                         {isGeminiPowered === false ? 'Smart Tutor' : 'Gemini AI'}
                       </span>
@@ -735,11 +739,15 @@ export default function LessonDetailPage() {
                     <div
                       className={`max-w-[85%] p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                         msg.sender === 'user'
-                          ? 'bg-blue-600 text-white rounded-br-none'
-                          : 'bg-white border border-slate-200/80 text-slate-800 rounded-bl-none shadow-xs whitespace-pre-line'
+                          ? 'bg-blue-600 text-white rounded-br-none whitespace-pre-line'
+                          : 'bg-white border border-slate-200/80 text-slate-800 rounded-bl-none shadow-xs'
                       }`}
                     >
-                      {msg.text}
+                      {msg.sender === 'user' ? (
+                        msg.text
+                      ) : (
+                        <MathRenderer content={msg.text} />
+                      )}
                     </div>
                   </div>
                 ))}

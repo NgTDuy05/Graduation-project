@@ -31,7 +31,7 @@ export class StudyService implements OnModuleInit {
   ) {
     const apiKey = this.configService.get<string>('GEMINI_API_KEY')?.trim();
     this.geminiModel =
-      this.configService.get<string>('GEMINI_MODEL')?.trim() || 'gemini-4-hydrogen';
+      this.configService.get<string>('GEMINI_MODEL')?.trim() || 'gemini-3.8-flash';
 
     if (apiKey && apiKey !== 'your_gemini_api_key_here') {
       this.genAI = new GoogleGenAI({ apiKey });
@@ -200,75 +200,75 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
             {
               id: 'fc_1',
               term: 'Hàm số đồng biến',
-              definition: 'Khi x tăng thì giá trị f(x) cũng tăng (đạo hàm f\'(x) > 0)',
-              example: 'y = 2x + 1 có y\' = 2 > 0 luôn đồng biến trên R',
+              definition: 'Khi $x$ tăng thì giá trị $f(x)$ cũng tăng (đạo hàm $f\'(x) > 0$)',
+              example: '$y = 2x + 1$ có $y\' = 2 > 0$ luôn đồng biến trên $\\mathbb{R}$',
               difficulty: 'easy',
             },
             {
               id: 'fc_2',
               term: 'Hàm số nghịch biến',
-              definition: 'Khi x tăng thì giá trị f(x) lại giảm (đạo hàm f\'(x) < 0)',
-              example: 'y = -3x + 5 có y\' = -3 < 0 luôn nghịch biến trên R',
+              definition: 'Khi $x$ tăng thì giá trị $f(x)$ lại giảm (đạo hàm $f\'(x) < 0$)',
+              example: '$y = -3x + 5$ có $y\' = -3 < 0$ luôn nghịch biến trên $\\mathbb{R}$',
               difficulty: 'easy',
             },
             {
               id: 'fc_3',
               term: 'Điểm tới hạn',
-              definition: 'Điểm mà tại đó f\'(x) = 0 hoặc f\'(x) không xác định',
-              example: 'y = x^3 - 3x có y\' = 3x^2 - 3 = 0 <=> x = 1 hoặc x = -1',
+              definition: 'Điểm mà tại đó $f\'(x) = 0$ hoặc $f\'(x)$ không xác định',
+              example: '$y = x^3 - 3x$ có $y\' = 3x^2 - 3 = 0 \\Leftrightarrow x = 1$ hoặc $x = -1$',
               difficulty: 'medium',
             },
             {
               id: 'fc_4',
               term: 'Quy tắc xét dấu nhị thức bậc nhất',
-              definition: 'Trước trái - Sau cùng (Trái dấu hệ số a trước nghiệm, cùng dấu sau nghiệm)',
-              example: 'f(x) = 2x - 4 có nghiệm x = 2; với x > 2 thì f(x) > 0',
+              definition: 'Trước trái - Sau cùng (Trái dấu hệ số $a$ trước nghiệm, cùng dấu sau nghiệm)',
+              example: '$f(x) = 2x - 4$ có nghiệm $x = 2$; với $x > 2$ thì $f(x) > 0$',
               difficulty: 'medium',
             },
             {
               id: 'fc_5',
               term: 'Quy tắc xét dấu tam thức bậc hai',
-              definition: 'Trong trái - Ngoài cùng (Trong khoảng 2 nghiệm trái dấu a, ngoài cùng dấu a)',
-              example: 'x^2 - 5x + 6 có nghiệm 2 và 3; trong khoảng (2;3) mang dấu âm',
+              definition: 'Trong trái - Ngoài cùng (Trong khoảng 2 nghiệm trái dấu $a$, ngoài cùng dấu $a$)',
+              example: '$x^2 - 5x + 6$ có nghiệm $2$ và $3$; trong khoảng $(2; 3)$ mang dấu âm',
               difficulty: 'hard',
             },
           ],
           practiceQuestions: [
             {
               id: 'q1',
-              question: 'Cho hàm số y = x^3 - 3x^2 + 2. Mệnh đề nào sau đây là ĐÚNG?',
+              question: 'Cho hàm số $y = x^3 - 3x^2 + 2$. Mệnh đề nào sau đây là ĐÚNG?',
               options: [
-                'Hàm số đồng biến trên khoảng (0; 2)',
-                'Hàm số nghịch biến trên khoảng (0; 2)',
-                'Hàm số đồng biến trên khoảng (-∞; 2)',
-                'Hàm số nghịch biến trên khoảng (2; +∞)',
+                'Hàm số đồng biến trên khoảng $(0; 2)$',
+                'Hàm số nghịch biến trên khoảng $(0; 2)$',
+                'Hàm số đồng biến trên khoảng $(-\\infty; 2)$',
+                'Hàm số nghịch biến trên khoảng $(2; +\\infty)$',
               ],
               correctIndex: 1,
-              explanation: 'Tính đạo hàm y\' = 3x^2 - 6x = 3x(x - 2). Cho y\' = 0 <=> x = 0 hoặc x = 2. Trong khoảng (0; 2), y\' < 0 nên hàm số nghịch biến trên (0; 2).',
+              explanation: 'Tính đạo hàm $y\' = 3x^2 - 6x = 3x(x - 2)$. Cho $y\' = 0 \\Leftrightarrow x = 0$ hoặc $x = 2$. Trong khoảng $(0; 2)$, $y\' < 0$ nên hàm số nghịch biến trên $(0; 2)$.',
             },
             {
               id: 'q2',
-              question: 'Tìm tất cả các khoảng đồng biến của hàm số y = -x^3 + 3x.',
+              question: 'Tìm tất cả các khoảng đồng biến của hàm số $y = -x^3 + 3x$.',
               options: [
-                '(-1; 1)',
-                '(-∞; -1) và (1; +∞)',
-                '(-∞; -1)',
-                '(1; +∞)',
+                '$(-1; 1)$',
+                '$(-\\infty; -1)$ và $(1; +\\infty)$',
+                '$(-\\infty; -1)$',
+                '$(1; +\\infty)$',
               ],
               correctIndex: 0,
-              explanation: 'y\' = -3x^2 + 3 = -3(x^2 - 1). y\' = 0 <=> x = ±1. Hệ số a = -3 < 0. Theo quy tắc trong trái ngoài cùng, y\' > 0 khi x ∈ (-1; 1). Do đó hàm số đồng biến trên (-1; 1).',
+              explanation: 'Ta có $y\' = -3x^2 + 3 = -3(x^2 - 1)$. Cho $y\' = 0 \\Leftrightarrow x = \\pm 1$. Hệ số $a = -3 < 0$. Theo quy tắc trong trái ngoài cùng, $y\' > 0$ khi $x \\in (-1; 1)$. Do đó hàm số đồng biến trên $(-1; 1)$.',
             },
             {
               id: 'q3',
-              question: 'Hàm số nào sau đây ĐỒNG BIẾN trên toàn bộ tập số thực R?',
+              question: 'Hàm số nào sau đây ĐỒNG BIẾN trên toàn bộ tập số thực $\\mathbb{R}$?',
               options: [
-                'y = x^4 + 2x^2 + 1',
-                'y = x^3 + 2x - 5',
-                'y = (x + 1) / (x - 2)',
-                'y = tan(x)',
+                '$y = x^4 + 2x^2 + 1$',
+                '$y = x^3 + 2x - 5$',
+                '$y = \\frac{x + 1}{x - 2}$',
+                '$y = \\tan(x)$',
               ],
               correctIndex: 1,
-              explanation: 'Xét hàm y = x^3 + 2x - 5 có y\' = 3x^2 + 2. Vì 3x^2 ≥ 0 với mọi x nên y\' = 3x^2 + 2 ≥ 2 > 0 với mọi x ∈ R. Do đó hàm số luôn đồng biến trên R.',
+              explanation: 'Xét hàm số $y = x^3 + 2x - 5$ có đạo hàm $y\' = 3x^2 + 2$. Vì $3x^2 \\ge 0$ với mọi $x$ nên $y\' = 3x^2 + 2 \\ge 2 > 0$ với mọi $x \\in \\mathbb{R}$. Do đó hàm số luôn đồng biến trên $\\mathbb{R}$.',
             },
           ],
         },
@@ -396,11 +396,11 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
   }
 
   /**
-   * Hỏi đáp Gia sư AI Unilearn (Tích hợp Google Gemini API)
+   * Hỏi đáp Gia sư AI SmartLearn (Tích hợp Google Gemini API)
    */
   async askTutor(dto: AskTutorDto) {
     const lesson = await this.lessonModel.findOne({ lessonId: dto.lessonId }).exec();
-    const lessonTitle = lesson?.title || dto.lessonTitle || 'Bài học Unilearn';
+    const lessonTitle = lesson?.title || dto.lessonTitle || 'Bài học SmartLearn';
     const summaryText = lesson?.summary?.length
       ? lesson.summary.map((s, idx) => `${idx + 1}. ${s}`).join('\n')
       : 'Chưa có tóm tắt riêng.';
@@ -409,9 +409,9 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
       : '';
 
     const systemInstruction = [
-      'Bạn là Gia sư AI Unilearn — trợ lý học tập thông minh dành cho học sinh Việt Nam từ lớp 6 đến lớp 12.',
-      'Phong cách: ân cần, khích lệ, sư phạm, dễ hiểu, giải thích từng bước rõ ràng bằng tiếng Việt.',
-      'Định dạng: dùng gạch đầu dòng ngắn gọn, nhấn mạnh ý chính, công thức toán học viết gọn gàng.',
+      'Bạn là Gia sư AI SmartLearn — trợ lý học tập thông minh dành cho học sinh Việt Nam từ lớp 6 đến lớp 12.',
+      'Phong cách: ân cần, khích lệ, sư phạm, dễ hiểu, giải thích từng bước rõ ràng bằng tiếng Việt chuẩn mực, xưng hô "thầy/cô" và gọi học sinh là "em".',
+      'Định dạng: dùng gạch đầu dòng ngắn gọn, nhấn mạnh ý chính, công thức toán học/khoa học trình bày bằng định dạng LaTeX (kẹp giữa $...$ hoặc $$...$$).',
       `Bài học hiện tại: "${lessonTitle}".`,
       `Tóm tắt trọng tâm:\n${summaryText}`,
       theoryExcerpt ? `Nội dung lý thuyết tham khảo:\n${theoryExcerpt}` : '',
@@ -437,7 +437,7 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
         const outputText = interaction.output_text?.trim();
         if (outputText) {
           return {
-            tutorName: 'Gia sư Unilearn AI (Gemini)',
+            tutorName: 'Gia sư SmartLearn AI (Gemini)',
             response: outputText,
             interactionId: interaction.id,
             model: this.geminiModel,
@@ -459,7 +459,7 @@ Giả sử hàm số $y = f(x)$ có đạo hàm trên khoảng $K$:
       : '• Xem kỹ phần định nghĩa và các ví dụ mẫu trong mục Lý thuyết.\n• Luyện lại bộ Flashcard để ghi nhớ công thức trọng tâm.';
 
     return {
-      tutorName: 'Gia sư Unilearn AI',
+      tutorName: 'Gia sư SmartLearn AI',
       poweredByGemini: false,
       response:
         `Chào em! Thầy đã nhận được câu hỏi của em về **"${lessonTitle}"**:\n` +

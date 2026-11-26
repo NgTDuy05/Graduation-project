@@ -160,7 +160,7 @@ export default function ParentDashboardPage() {
             </div>
             <div>
               <span className="font-extrabold text-lg text-slate-900 tracking-tight">
-                Unilearn
+                SmartLearn
               </span>
               <span className="ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
                 Cổng Phụ Huynh
@@ -889,7 +889,7 @@ export default function ParentDashboardPage() {
 
         {/* Footer */}
         <footer className="text-center py-4 text-xs text-slate-400">
-          Unilearn • Đồng hành cùng phụ huynh và học sinh từ lớp 6 đến lớp 12
+          SmartLearn • Đồng hành cùng phụ huynh và học sinh từ lớp 6 đến lớp 12
         </footer>
       </div>
     </ProtectedRoute>
