@@ -10,6 +10,8 @@ import { StudyModule } from './modules/study/study.module';
 import { ClassesModule } from './modules/classes/classes.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { PracticeModule } from './modules/practice/practice.module';
+import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { ParentModule } from './modules/parent/parent.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { PracticeModule } from './modules/practice/practice.module';
     ClassesModule,
     ChatModule,
     PracticeModule,
+    SubscriptionsModule,
+    ParentModule,
   ],
   controllers: [],
   providers: [],
